@@ -1,0 +1,34 @@
+<!--1.展示文本消息，文本页面上下左右居中
+2.文本根据url的查询字段展示不同消息
+3.目前需要展示的有两种：
+	您的密码已成功修改。
+	您已成功激活账户。
+4.有回到主页按钮
+--><!DOCTYPE html><html lang="zh-CN"><head><title></title><meta charest="utf-8"><style>body{margin:0px;padding:0px;}
+#container{position:relative;margin:0px auto;margin-top:200px;text-align: center;}
+</style><script type="text/javascript">window.onload = function(){
+	var req=new Object;
+	req=GetRequest();
+	var msgStr=document.getElementById("msg");
+	switch(req['msg']){
+		case "pwd_suc":msgStr.innerHTML="密码修改成功";
+						break;
+		case "active_suc":msgStr.innerHTML="激活成功";
+						break;
+		default:msgStr.innerHTML="没有参数";
+				break;
+	}
+}
+function GetRequest(){
+	var url=window.location.search;
+	var param=new Object;
+	if(url.indexOf("?")!=-1){
+		var str=url.substr(1).split("&");
+		for(var i=0;i<str.length;i++){
+			param[str[i].split("=")[0]]=str[i].split("=")[1];
+		}					
+	}
+	return param;
+}
+
+</script></head><body><div id="container"><!--h1 信息提示--><h2 id="msg"></h2><input type="button" value="返回主页" onclick="window.location.href='./msg.html?msg=active_suc'" class="btn"></div></body></html>
